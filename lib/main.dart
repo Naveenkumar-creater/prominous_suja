@@ -1,172 +1,93 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:suja_shoie_app/pages/home_page/main_screen.dart';
-import 'package:suja_shoie_app/pages/login_page.dart';
-import 'package:suja_shoie_app/pages/spalsh_screen.dart';
-import 'package:suja_shoie_app/providers/bottom_tap_provider.dart';
-import 'package:suja_shoie_app/providers/theme_providers.dart';
-import 'package:suja_shoie_app/utils/qr_code/qrcode_scaner.dart';
-import 'package:suja_shoie_app/utils/theme_styles.dart';
+import 'package:suja_shoie_app/asset_list.dart';
+import 'package:suja_shoie_app/feature/presentainon/api_services/user_service.dart';
+import 'package:suja_shoie_app/feature/presentainon/pages/home_page/main_screen.dart';
+import 'package:suja_shoie_app/feature/presentainon/pages/login_page.dart';
+import 'package:suja_shoie_app/feature/presentainon/pages/spalsh_screen.dart';
+import 'package:suja_shoie_app/feature/presentainon/providers/bottom_tap_provider.dart';
+import 'package:suja_shoie_app/feature/presentainon/providers/theme_providers.dart';
+import 'package:suja_shoie_app/feature/presentainon/providers/userprovider.dart';
+import 'package:suja_shoie_app/core/utils/qr_code/qrcode_scaner.dart';
+import 'package:suja_shoie_app/core/utils/theme_styles.dart';
+import 'package:suja_shoie_app/feature/data/model/usermodel.dart';
+
+import 'feature/presentainon/api_services/login_api_service.dart';
+import 'feature/presentainon/api_services/user_service.dart';
+import 'feature/presentainon/pages/widget/login_page_widget/responsive_login_screen.dart';
+import 'feature/presentainon/providers/machine_list_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => TabProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ThemeProvider(),
-        )
-      ],
-      child: Consumer<ThemeProvider>(
-        builder: (context, themeProvider, child) {
-          return MaterialApp(
-            theme: themeData(context, themeProvider.isDarkTheme),
-            title: 'Flutter Login Web',
-            home: const SplashScreen(),
-            debugShowCheckedModeBanner: false,
-          );
+        providers: [
+          ChangeNotifierProvider<ThemeProvider>(
+            create: (_) => ThemeProvider(),
+          ),
+          ChangeNotifierProvider<MachineList>(
+            create: (_) => MachineList(),
+          ),
+          ChangeNotifierProvider<TabProvider>(
+            create: (_) => TabProvider(),
+          ),
+          ChangeNotifierProvider<UserProvider>(
+            create: (_) => UserProvider(),
+          ),
+        ],
+        child: Consumer<ThemeProvider>(
+          builder: (context, themeProvider, child) {
+            return MaterialApp(
+              title: "Suja_Shoei",
+              theme: themeData(context, themeProvider.isDarkTheme),
+              debugShowCheckedModeBanner: false,
+              home: Scaffold(
+                body: MainScreen(),
+              ),
+            );
+          },
+        ));
+  }
+}
+
+class DefaultScreen extends StatefulWidget {
+  const DefaultScreen({Key? key}) : super(key: key);
+
+  @override
+  _DefaultScreenScreenState createState() => _DefaultScreenScreenState();
+}
+
+class _DefaultScreenScreenState extends State<DefaultScreen> {
+  final Login_auth_Screen authService = Login_auth_Screen();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
+      authService.getUserData(context);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+    final user = userProvider.user;
+    final userToken = user?.token;
+
+    return Scaffold(
+      body: Builder(
+        builder: (BuildContext context) {
+          return userToken != null && userToken.isNotEmpty
+              ? const MainScreen()
+              : const LoginScreen();
         },
       ),
     );
   }
 }
-
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<String>(
-      icon: const CircleAvatar(
-        child: Icon(Icons.person),
-      ),
-      offset: const Offset(0, 50),
-      elevation: 8,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      itemBuilder: (BuildContext context) {
-        return <PopupMenuEntry<String>>[
-          PopupMenuItem<String>(
-            value: 'account',
-            child: Container(
-              alignment: Alignment.center,
-              child: Column(
-                children: [
-                  const SizedBox(
-                    width: 100,
-                    height: 100,
-                    child: Icon(Icons.person),
-                  ),
-                  const SizedBox(height: 8.0),
-                  const Text('Name'),
-                  const SizedBox(height: 8.0),
-                  Container(
-                    height: 2,
-                    width: double.infinity,
-                    color: Colors.black,
-                  )
-                ],
-              ),
-            ),
-          ),
-          const PopupMenuDivider(),
-          PopupMenuItem<String>(
-            value: null,
-            child: Container(
-              alignment: Alignment.center,
-              child: const Text('My Account'),
-            ),
-          ),
-          PopupMenuItem<String>(
-            value: null,
-            child: Container(
-              alignment: Alignment.center,
-              child: const Text('Account'),
-            ),
-          ),
-          PopupMenuItem<String>(
-            value: 'signOut',
-            child: Container(
-              alignment: Alignment.center,
-              child: const Text('Sign Out'),
-            ),
-          ),
-          PopupMenuItem<String>(
-            enabled: true,
-            value: 'account',
-            child: Container(
-              alignment: Alignment.center,
-              width: 200,
-              height: 300,
-            ),
-          ),
-        ];
-      },
-      onSelected: null,
-    );
-  }
-}
-// class DropdownMenuExample extends StatefulWidget {
-//   @override
-//   _DropdownMenuExampleState createState() => _DropdownMenuExampleState();
-// }
-
-// class _DropdownMenuExampleState extends State<DropdownMenuExample> {
-//   int selectedValueIndex = 0;
-//   List<int> numberValues = [
-//     0,
-//     2,
-//     5,
-//     0
-//   ]; // Corresponding number values for each option
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: Colors.red,
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             DropdownButton<int>(
-//               value: selectedValueIndex,
-//               onChanged: (newValueIndex) {
-//                 setState(() {
-//                   selectedValueIndex = newValueIndex!;
-//                 });
-//               },
-//               items: <DropdownMenuItem<int>>[
-//                 DropdownMenuItem<int>(
-//                   value: 0,
-//                   child: Text('Option 1'),
-//                 ),
-//                 DropdownMenuItem<int>(
-//                   value: 1,
-//                   child: Text('Option 2'),
-//                 ),
-//                 DropdownMenuItem<int>(
-//                   value: 2,
-//                   child: Text('Option 3'),
-//                 ),
-//                 DropdownMenuItem<int>(
-//                   value: 3,
-//                   child: Text('Option 4'),
-//                 ),
-//               ],
-//             ),
-//             const SizedBox(height: 20),
-//             Text('Selected Value: ${numberValues[selectedValueIndex]}'),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
