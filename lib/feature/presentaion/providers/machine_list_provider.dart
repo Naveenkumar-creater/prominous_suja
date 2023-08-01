@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 
-import '../../../models/user.dart';
+import '../../../models/Asset_List_for_Checklist_model.dart';
 
 class MachineList extends ChangeNotifier {
   AssetLists? data;

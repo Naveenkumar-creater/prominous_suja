@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:suja_shoie_app/asset_list.dart';
-import 'package:suja_shoie_app/feature/presentainon/api_services/user_service.dart';
-import 'package:suja_shoie_app/feature/presentainon/pages/home_page/main_screen.dart';
-import 'package:suja_shoie_app/feature/presentainon/pages/login_page.dart';
-import 'package:suja_shoie_app/feature/presentainon/pages/spalsh_screen.dart';
-import 'package:suja_shoie_app/feature/presentainon/providers/bottom_tap_provider.dart';
-import 'package:suja_shoie_app/feature/presentainon/providers/theme_providers.dart';
-import 'package:suja_shoie_app/feature/presentainon/providers/userprovider.dart';
+import 'package:suja_shoie_app/feature/presentaion/api_services/user_service.dart';
+import 'package:suja_shoie_app/feature/presentaion/pages/home_page/main_screen.dart';
+import 'package:suja_shoie_app/feature/presentaion/pages/login_page.dart';
+import 'package:suja_shoie_app/feature/presentaion/pages/spalsh_screen.dart';
+import 'package:suja_shoie_app/feature/presentaion/providers/bottom_tap_provider.dart';
+import 'package:suja_shoie_app/feature/presentaion/providers/checklist_status_provider.dart';
+import 'package:suja_shoie_app/feature/presentaion/providers/theme_providers.dart';
+import 'package:suja_shoie_app/feature/presentaion/providers/userprovider.dart';
 import 'package:suja_shoie_app/core/utils/qr_code/qrcode_scaner.dart';
 import 'package:suja_shoie_app/core/utils/theme_styles.dart';
 import 'package:suja_shoie_app/feature/data/model/usermodel.dart';
 
-import 'feature/presentainon/api_services/login_api_service.dart';
-import 'feature/presentainon/api_services/user_service.dart';
-import 'feature/presentainon/pages/widget/login_page_widget/responsive_login_screen.dart';
-import 'feature/presentainon/providers/machine_list_provider.dart';
+import 'feature/presentaion/api_services/login_api_service.dart';
+import 'feature/presentaion/api_services/user_service.dart';
+import 'feature/presentaion/pages/widget/login_page_widget/responsive_login_screen.dart';
+import 'feature/presentaion/providers/machine_list_provider.dart';
 
 void main() {
   runApp(
@@ -40,6 +41,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<UserProvider>(
             create: (_) => UserProvider(),
           ),
+          ChangeNotifierProvider<CheckListStatusProvider>(
+            create: (_) => CheckListStatusProvider(),
+          ),
         ],
         child: Consumer<ThemeProvider>(
           builder: (context, themeProvider, child) {
@@ -48,11 +52,34 @@ class MyApp extends StatelessWidget {
               theme: themeData(context, themeProvider.isDarkTheme),
               debugShowCheckedModeBanner: false,
               home: Scaffold(
-                body: MainScreen(),
+                body: YourWidget(),
               ),
             );
           },
         ));
+  }
+}
+
+class YourWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // Access the CheckListStatusProvider using Provider.of
+    final checklistStatusProvider =
+        Provider.of<CheckListStatusProvider>(context);
+
+    // Use a Conditional widget to check if the data is still loading or available
+    return Scaffold(
+      body: checklistStatusProvider.data == null
+          ? Center(
+              child:
+                  CircularProgressIndicator(), // Show a loading indicator if data is still loading
+            )
+          : Center(
+              child: Text(
+                "Checklist Opens Count: ${checklistStatusProvider.data!.checklistStatusCount?.first?.checklistOpensCount}",
+              ),
+            ),
+    );
   }
 }
 

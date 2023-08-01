@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'feature/presentainon/providers/machine_list_provider.dart';
+import 'feature/presentaion/providers/machine_list_provider.dart';
 
 class AssetList extends StatelessWidget {
   const AssetList({Key? key});
@@ -47,12 +47,6 @@ class AssetList extends StatelessWidget {
                     color: Colors.grey,
                   ),
                 ),
-                IconButton(
-                  icon: const Icon(Icons.close),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
               ],
             ),
             const SizedBox(height: 16),
@@ -61,6 +55,8 @@ class AssetList extends StatelessWidget {
                 scrollDirection: Axis.vertical,
                 children: [
                   DataTable(
+                    showCheckboxColumn:
+                        false, // Set to false to remove checkboxes
                     columnSpacing: MediaQuery.of(context).size.width * 0.15,
                     headingTextStyle: TextStyle(color: Colors.white),
                     dataTextStyle: TextStyle(color: Colors.black),
@@ -132,16 +128,13 @@ class AssetList extends StatelessWidget {
                   DataCell(Text(data.locName ?? '')),
                 ],
                 // Wrap the DataRow in an InkWell and handle the onTap callback
-                onSelectChanged: (isSelected) {
-                  if (isSelected!) {
-                    // Navigate to machine details page using the asset_id
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => MachineDetailsPage(data.assetId),
-                      ),
-                    );
-                  }
+                onSelectChanged: (_) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MachineDetailsPage(data.assetId),
+                    ),
+                  );
                 },
               ),
             ))

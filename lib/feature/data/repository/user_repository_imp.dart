@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../domain/entity/userentity.dart';
 import '../../domain/repository/uers_repository.dart';
 
-import '../../presentainon/pages/spalsh_screen.dart';
+import '../../presentaion/pages/spalsh_screen.dart';
 import '../data_source/remote/login_api_service.dart';
 
 import '../model/usermodel.dart';

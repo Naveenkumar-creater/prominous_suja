@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:lottie/lottie.dart';
 
-import 'package:suja_shoie_app/feature/presentainon/pages/login_page.dart';
+import 'package:suja_shoie_app/feature/presentaion/pages/login_page.dart';
 
 import '../../../core/utils/font_styles.dart';
 

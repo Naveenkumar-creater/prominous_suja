@@ -1,4 +1,4 @@
-import 'package:suja_shoie_app/feature/presentainon/pages/widget/login_page_widget/auth_screen.dart';
+import 'package:suja_shoie_app/feature/presentaion/pages/widget/login_page_widget/auth_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 

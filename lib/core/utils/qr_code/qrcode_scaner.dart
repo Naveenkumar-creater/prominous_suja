@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
-import 'package:suja_shoie_app/feature/presentainon/pages/home_page/main_screen.dart';
-import 'package:suja_shoie_app/feature/presentainon/pages/login_page.dart';
+import 'package:suja_shoie_app/feature/presentaion/pages/home_page/main_screen.dart';
+import 'package:suja_shoie_app/feature/presentaion/pages/login_page.dart';
 
 import 'package:suja_shoie_app/core/utils/qr_code/qrcode_overley.dart';
 

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
-import 'package:suja_shoie_app/feature/presentainon/pages/widget/home_page_widget/workorder_widget/circular_progress_bar.dart';
-import 'package:suja_shoie_app/feature/presentainon/pages/widget/home_page_widget/workorder_widget/dropdown_button.dart';
+import 'package:suja_shoie_app/feature/presentaion/pages/widget/home_page_widget/workorder_widget/circular_progress_bar.dart';
+import 'package:suja_shoie_app/feature/presentaion/pages/widget/home_page_widget/workorder_widget/dropdown_button.dart';
+import 'package:suja_shoie_app/models/checklist_staatus_model.dart';
 
+import '../../../../providers/checklist_status_provider.dart';
 import '../../../../providers/theme_providers.dart';
 
 import '../../../../../../core/utils/font_styles.dart';
@@ -201,6 +203,7 @@ class GridViewContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<ThemeProvider>(context);
+
     return Container(
       decoration: BoxDecoration(
         color: themeState.isDarkTheme ? const Color(0xFF424242) : Colors.white,
@@ -216,13 +219,13 @@ class GridViewContent extends StatelessWidget {
           ),
         ],
       ),
-
       child: Column(
         children: [
-          const DropdownMenuExample(
+          DropdownMenuExample(
             Open: Column(
               children: [
                 Text('Content for Option'),
+
                 // Add additional widgets specific to the 'option' option
               ],
             ),
@@ -244,7 +247,7 @@ class GridViewContent extends StatelessWidget {
                 // Add additional widgets specific to the 'overdue' option
               ],
             ),
-            widgetList: [10, 0, 2, 0],
+            widgetList: [10, 5, 6, 9],
           ),
           SizedBox(
             height: 10,
@@ -253,7 +256,7 @@ class GridViewContent extends StatelessWidget {
             text: title,
           ),
         ],
-      ), // Include DropdownMenuExample widget here
+      ),
     );
   }
 }
