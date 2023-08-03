@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:suja_shoie_app/feature/data/data_source/remote/login_api_service.dart';
 import 'package:suja_shoie_app/feature/data/repository/user_repository_imp.dart';
 import 'package:suja_shoie_app/feature/domain/entity/userentity.dart';
+import '../../data/core/api_client.dart';
 import '../../data/model/usermodel.dart';
 import '../../domain/repository/uers_repository.dart';
 import '../../domain/usecase/user_usecase.dart';
@@ -19,8 +20,11 @@ class Login_auth_Screen {
     required String password,
   }) async {
     try {
+      ApiClient apiClient = ApiClient(); // Create an instance of ApiClient
+      ApiService apiService =
+          ApiService(apiClient); // Pass the ApiClient instance to ApiService
       UserRepository userRepository = UserRepositoryImpl(
-          ApiService()); // Create the UserRepository implementation
+          apiService); // Create the UserRepository implementation
       SignInUserUseCase signInUserUseCase =
           SignInUserUseCase(userRepository); // Create the use case
       UserEntity user = await signInUserUseCase.execute(email, password);
@@ -61,8 +65,11 @@ class Login_auth_Screen {
 
   void getUserData(BuildContext context) async {
     try {
+      ApiClient apiClient = ApiClient(); // Create an instance of ApiClient
+      ApiService apiService =
+          ApiService(apiClient); // Pass the ApiClient instance to ApiService
       UserRepository userRepository = UserRepositoryImpl(
-          ApiService()); // Create the UserRepository implementation
+          apiService); // Create the UserRepository implementation
       GetUserDataUseCase getUserDataUseCase =
           GetUserDataUseCase(userRepository); // Create the use case
 

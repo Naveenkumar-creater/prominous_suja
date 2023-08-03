@@ -192,7 +192,7 @@ class WorkOrdersGridView extends StatelessWidget {
   }
 }
 
-class GridViewContent extends StatelessWidget {
+class GridViewContent extends StatefulWidget {
   final String title;
 
   const GridViewContent({
@@ -201,8 +201,23 @@ class GridViewContent extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<GridViewContent> createState() => _GridViewContentState();
+}
+
+class _GridViewContentState extends State<GridViewContent> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<CheckListStatusProvider>(context, listen: false)
+        .getStatus(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<ThemeProvider>(context);
+    final checklistStatusProvider =
+        Provider.of<CheckListStatusProvider>(context);
+    final count = checklistStatusProvider.data?.checklistStatusCount?.first;
 
     return Container(
       decoration: BoxDecoration(
@@ -247,13 +262,18 @@ class GridViewContent extends StatelessWidget {
                 // Add additional widgets specific to the 'overdue' option
               ],
             ),
-            widgetList: [10, 5, 6, 9],
+            widgetList: [
+              count?.checklistOpensCount ?? 0,
+              count?.checklistInProgressCount ?? 0,
+              count?.checklistCompleteCount ?? 0,
+              count?.checklistOverdueCount ?? 0,
+            ], // Use the integer value directly
           ),
           SizedBox(
             height: 10,
           ),
           Headings(
-            text: title,
+            text: widget.title,
           ),
         ],
       ),

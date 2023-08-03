@@ -7,6 +7,7 @@ import 'package:suja_shoie_app/feature/presentaion/pages/login_page.dart';
 import 'package:suja_shoie_app/feature/presentaion/pages/spalsh_screen.dart';
 import 'package:suja_shoie_app/feature/presentaion/providers/bottom_tap_provider.dart';
 import 'package:suja_shoie_app/feature/presentaion/providers/checklist_status_provider.dart';
+import 'package:suja_shoie_app/feature/presentaion/providers/loginprovider.dart';
 import 'package:suja_shoie_app/feature/presentaion/providers/theme_providers.dart';
 import 'package:suja_shoie_app/feature/presentaion/providers/userprovider.dart';
 import 'package:suja_shoie_app/core/utils/qr_code/qrcode_scaner.dart';
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
         providers: [
+          ChangeNotifierProvider<LoginProvider>(
+            create: (_) => LoginProvider(),
+          ),
           ChangeNotifierProvider<ThemeProvider>(
             create: (_) => ThemeProvider(),
           ),
@@ -52,34 +56,11 @@ class MyApp extends StatelessWidget {
               theme: themeData(context, themeProvider.isDarkTheme),
               debugShowCheckedModeBanner: false,
               home: Scaffold(
-                body: YourWidget(),
+                body: LoginPage(),
               ),
             );
           },
         ));
-  }
-}
-
-class YourWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    // Access the CheckListStatusProvider using Provider.of
-    final checklistStatusProvider =
-        Provider.of<CheckListStatusProvider>(context);
-
-    // Use a Conditional widget to check if the data is still loading or available
-    return Scaffold(
-      body: checklistStatusProvider.data == null
-          ? Center(
-              child:
-                  CircularProgressIndicator(), // Show a loading indicator if data is still loading
-            )
-          : Center(
-              child: Text(
-                "Checklist Opens Count: ${checklistStatusProvider.data!.checklistStatusCount?.first?.checklistOpensCount}",
-              ),
-            ),
-    );
   }
 }
 

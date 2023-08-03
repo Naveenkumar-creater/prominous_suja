@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:suja_shoie_app/feature/presentaion/api_services/user_service.dart';
 
 import '../../../../../core/utils/custom_button.dart';
+import '../../../api_services/login_api .dart';
 // import '../services/auth_services.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   final GlobalKey<FormState> signinFormKey = GlobalKey<FormState>();
   final Login_auth_Screen authScreen = Login_auth_Screen();
+  // final Login_Screen loginScreen = Login_Screen();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -35,6 +37,14 @@ class _AuthScreenState extends State<AuthScreen> {
       password: _passwordController.text,
     ));
   }
+
+  // void logInUser() {
+  //   (loginScreen.login(
+  //     context: context,
+  //     loginId: _emailController.text,
+  //     password: _passwordController.text,
+  //   ));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +118,8 @@ class _AuthScreenState extends State<AuthScreen> {
             onTap: () {
               if (signinFormKey.currentState?.validate() == true) {
                 signInUser();
+
+                // logInUser();
               }
               // Navigator.push(
               //     context,

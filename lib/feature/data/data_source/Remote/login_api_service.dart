@@ -1,36 +1,30 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:suja_shoie_app/feature/data/core/api_client.dart';
+import 'package:suja_shoie_app/feature/data/core/api_client.dart';
+import 'package:suja_shoie_app/feature/data/data_source/Remote/api_service_base.dart';
+
 import 'package:suja_shoie_app/feature/data/model/usermodel.dart';
 
-String baseUrl = "http://192.168.0.103:3000";
+import '../../core/api_constant.dart';
 
-class ApiService {
-  ApiService();
+class ApiService extends ApiDataSource {
+  final ApiClient apiclient;
 
+  ApiService(this.apiclient);
+
+  @override
   Future<UserModel> signInUser(String email, String password) async {
-    try {
-      http.Response res = await http.post(
-        Uri.parse('$baseUrl/api/signin'),
-        body: jsonEncode({"email": email, "password": password}),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      );
-
-      if (res.statusCode == 200) {
-        return UserModel.fromJson(jsonDecode(res.body));
-      } else {
-        throw Exception("Invalid email or password");
-      }
-    } catch (e) {
-      throw e;
-    }
+    final response = await apiclient.post('signin', email, password);
+    final result = UserModel.fromJson(response);
+    return result;
   }
 
+  @override
   Future<UserModel> getUserData(String token) async {
     try {
       var tokenRes = await http.post(
-        Uri.parse("$baseUrl/api/tokenValidate"),
+        Uri.parse("${ApiConstant.baseUrl}tokenValidate"),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'auth-token': token,
@@ -41,7 +35,7 @@ class ApiService {
 
       if (response == true) {
         http.Response userRes = await http.get(
-          Uri.parse("$baseUrl/api/"),
+          Uri.parse("${ApiConstant.baseUrl}/"),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
             'auth-token': token,
