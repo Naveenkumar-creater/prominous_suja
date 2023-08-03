@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:suja_shoie_app/feature/data/data_source/Remote/api_service_base.dart';
 import 'package:suja_shoie_app/feature/data/data_source/remote/login_api_service.dart';
 import 'package:suja_shoie_app/feature/data/repository/user_repository_imp.dart';
 import 'package:suja_shoie_app/feature/domain/entity/userentity.dart';
@@ -21,10 +22,11 @@ class Login_auth_Screen {
   }) async {
     try {
       ApiClient apiClient = ApiClient(); // Create an instance of ApiClient
+
       ApiService apiService =
           ApiService(apiClient); // Pass the ApiClient instance to ApiService
-      UserRepository userRepository = UserRepositoryImpl(
-          apiService); // Create the UserRepository implementation
+      UserRepository userRepository = UserRepositoryImpl(apiService
+          as ApiDataSource); // Create the UserRepository implementation
       SignInUserUseCase signInUserUseCase =
           SignInUserUseCase(userRepository); // Create the use case
       UserEntity user = await signInUserUseCase.execute(email, password);
@@ -68,8 +70,8 @@ class Login_auth_Screen {
       ApiClient apiClient = ApiClient(); // Create an instance of ApiClient
       ApiService apiService =
           ApiService(apiClient); // Pass the ApiClient instance to ApiService
-      UserRepository userRepository = UserRepositoryImpl(
-          apiService); // Create the UserRepository implementation
+      UserRepository userRepository = UserRepositoryImpl(apiService
+          as ApiDataSource); // Create the UserRepository implementation
       GetUserDataUseCase getUserDataUseCase =
           GetUserDataUseCase(userRepository); // Create the use case
 
