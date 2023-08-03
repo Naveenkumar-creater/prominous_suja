@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:suja_shoie_app/feature/data/data_source/Remote/login_service.dart';
+
+import 'package:suja_shoie_app/feature/data/core/login_api_client.dart';
+import 'package:suja_shoie_app/feature/data/data_source/Remote/login_data_source_impl.dart';
+import 'package:suja_shoie_app/feature/data/data_source/Remote/remote_abstract/login_data_source.dart';
+
 import 'package:suja_shoie_app/feature/data/repository/login_repository_imp.dart';
 import 'package:suja_shoie_app/feature/domain/entity/loginentity.dart';
 import 'package:suja_shoie_app/feature/domain/repository/login_repository.dart';
@@ -15,17 +18,21 @@ class Login_Screen {
     required String password,
   }) async {
     try {
-      LoginRepository userRepository = LoginRepositoryImpl(
-          LoginService()); // Create the LoginRepository implementation
+      LoginClient apiClient = LoginClient(); // Create an instance of ApiClient
+      LoginDataSource loginData = LoginDataSourceimpl(
+          apiClient); // Pass the ApiClient instance to ApiService
+      LoginRepository loginRepository = LoginRepositoryImpl(loginData);
+      ; // Create the LoginRepository implementation
       LoginUseCase loginUseCase =
-          LoginUseCase(userRepository); // Create the use case
+          LoginUseCase(loginRepository); // Create the use case
       // ignore: unused_local_variable
       loginEntity user = await loginUseCase.execute(loginId, password);
 
+      // ignore: use_build_context_synchronously
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => MainScreen(),
+          builder: (context) => const MainScreen(),
         ),
         (route) => false,
       );
