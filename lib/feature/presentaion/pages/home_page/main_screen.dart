@@ -9,7 +9,7 @@ import 'package:suja_shoie_app/feature/presentaion/pages/widget/home_page_widget
 import '../../../../main.dart';
 import '../../providers/bottom_tap_provider.dart';
 import '../../providers/theme_providers.dart';
-import '../../../../core/utils/theme_styles.dart';
+import '../../../../constant/utils/theme_styles.dart';
 
 class MainScreen extends StatefulWidget {
   // ignore: prefer_final_fields

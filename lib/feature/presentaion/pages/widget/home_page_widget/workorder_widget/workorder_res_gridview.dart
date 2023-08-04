@@ -9,8 +9,8 @@ import 'package:suja_shoie_app/models/checklist_staatus_model.dart';
 import '../../../../providers/checklist_status_provider.dart';
 import '../../../../providers/theme_providers.dart';
 
-import '../../../../../../core/utils/font_styles.dart';
-import '../../../../../../core/utils/theme_styles.dart';
+import '../../../../../../constant/utils/font_styles.dart';
+import '../../../../../../constant/utils/theme_styles.dart';
 import 'dropdown_circularbar.dart';
 
 class WorkOrdersGridView extends StatelessWidget {

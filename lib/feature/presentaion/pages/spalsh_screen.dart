@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 
 import 'package:suja_shoie_app/feature/presentaion/pages/login_page.dart';
 
-import '../../../core/utils/font_styles.dart';
+import '../../../constant/utils/font_styles.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

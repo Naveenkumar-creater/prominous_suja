@@ -27,7 +27,7 @@ class LoginClient {
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else {
-        throw Exception("Invalid email or password");
+        throw Exception("Invalid  or password");
       }
     } catch (e) {
       throw e;

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/theme_providers.dart';
-import '../../../../core/utils/font_styles.dart';
-import '../../../../core/utils/qr_code/qrcode_scaner.dart';
-import '../../../../core/utils/theme_styles.dart';
+import '../../../../constant/utils/font_styles.dart';
+import '../../../../constant/utils/qr_code/qrcode_scaner.dart';
+import '../../../../constant/utils/theme_styles.dart';
 import '../widget/home_page_widget/workorder_widget/workorder_res_gridview.dart';
 
 class WorkOrdersScreen extends StatelessWidget {

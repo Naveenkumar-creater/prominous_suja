@@ -5,7 +5,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:suja_shoie_app/feature/presentaion/pages/home_page/main_screen.dart';
 import 'package:suja_shoie_app/feature/presentaion/pages/login_page.dart';
 
-import 'package:suja_shoie_app/core/utils/qr_code/qrcode_overley.dart';
+import 'package:suja_shoie_app/constant/utils/qr_code/qrcode_overley.dart';
 
 import '../font_styles.dart';
 import '../theme_styles.dart';

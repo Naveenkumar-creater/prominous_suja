@@ -26,6 +26,7 @@ class Login_Screen {
       LoginUseCase loginUseCase =
           LoginUseCase(loginRepository); // Create the use case
       // ignore: unused_local_variable
+
       loginEntity user = await loginUseCase.execute(loginId, password);
 
       // ignore: use_build_context_synchronously

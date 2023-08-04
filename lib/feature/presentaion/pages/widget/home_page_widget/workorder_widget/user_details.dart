@@ -45,7 +45,7 @@ class UserDetails extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             backgroundImage: AssetImage(
-                                'assets/profile_image.jpg'), // Replace with your image asset
+                                'assets/images/Suji shoie1.jpg'), // Replace with your image asset
                             radius: 50,
                           ),
                           CircleAvatar(

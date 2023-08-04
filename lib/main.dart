@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:suja_shoie_app/asset_list.dart';
+
 import 'package:suja_shoie_app/feature/presentaion/api_services/user_service.dart';
 import 'package:suja_shoie_app/feature/presentaion/pages/home_page/main_screen.dart';
 import 'package:suja_shoie_app/feature/presentaion/pages/login_page.dart';
-import 'package:suja_shoie_app/feature/presentaion/pages/spalsh_screen.dart';
+
 import 'package:suja_shoie_app/feature/presentaion/providers/bottom_tap_provider.dart';
 import 'package:suja_shoie_app/feature/presentaion/providers/checklist_status_provider.dart';
 import 'package:suja_shoie_app/feature/presentaion/providers/loginprovider.dart';
 import 'package:suja_shoie_app/feature/presentaion/providers/theme_providers.dart';
 import 'package:suja_shoie_app/feature/presentaion/providers/userprovider.dart';
-import 'package:suja_shoie_app/core/utils/qr_code/qrcode_scaner.dart';
-import 'package:suja_shoie_app/core/utils/theme_styles.dart';
-import 'package:suja_shoie_app/feature/data/model/usermodel.dart';
 
-import 'feature/presentaion/api_services/login_api_service.dart';
-import 'feature/presentaion/api_services/user_service.dart';
+import 'package:suja_shoie_app/constant/utils/theme_styles.dart';
+
 import 'feature/presentaion/pages/widget/login_page_widget/responsive_login_screen.dart';
 import 'feature/presentaion/providers/machine_list_provider.dart';
 

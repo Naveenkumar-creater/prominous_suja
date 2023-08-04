@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:suja_shoie_app/asset_list.dart';
 import '../../../../providers/theme_providers.dart';
-import '../../../../../../core/utils/theme_styles.dart';
+import '../../../../../../constant/utils/theme_styles.dart';
 
 class DropdownMenuExample extends StatefulWidget {
   final Widget Open;

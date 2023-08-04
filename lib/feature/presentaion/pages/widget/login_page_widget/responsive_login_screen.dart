@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../../responsive.dart';
-import '../../../../../core/utils/theme_styles.dart';
+import '../../../../../constant/utils/theme_styles.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
