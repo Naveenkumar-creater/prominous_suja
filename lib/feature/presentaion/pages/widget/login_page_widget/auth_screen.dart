@@ -15,8 +15,8 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   final GlobalKey<FormState> signinFormKey = GlobalKey<FormState>();
-  final Login_auth_Screen authScreen = Login_auth_Screen();
-  // final Login_Screen loginScreen = Login_Screen();
+  // final Login_auth_Screen authScreen = Login_auth_Screen();
+  final Login_Screen loginScreen = Login_Screen();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -30,21 +30,21 @@ class _AuthScreenState extends State<AuthScreen> {
     super.dispose();
   }
 
-  void signInUser() {
-    (authScreen.signInUser(
-      context: context,
-      email: _emailController.text,
-      password: _passwordController.text,
-    ));
-  }
-
-  // void logInUser() {
-  //   (loginScreen.login(
+  // void signInUser() {
+  //   (authScreen.signInUser(
   //     context: context,
-  //     loginId: _emailController.text,
+  //     email: _emailController.text,
   //     password: _passwordController.text,
   //   ));
   // }
+
+  void logInUser() {
+    (loginScreen.login(
+      context: context,
+      loginId: _emailController.text,
+      password: _passwordController.text,
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,9 +117,9 @@ class _AuthScreenState extends State<AuthScreen> {
             text: "Sign In",
             onTap: () {
               if (signinFormKey.currentState?.validate() == true) {
-                signInUser();
+                // signInUser();
 
-                // logInUser();
+                logInUser();
               }
               // Navigator.push(
               //     context,

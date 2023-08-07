@@ -11,8 +11,7 @@ class LoginDataSourceimpl extends LoginDataSource {
   LoginDataSourceimpl(this.loginClient);
   @override
   Future<LoginModel> loginInUser(String loginId, String password) async {
-    final response = await loginClient.post(loginId, password);
-    final result = LoginModel.fromJson(response);
+    final result = await loginClient.post(loginId, password);
     return result;
   }
 }

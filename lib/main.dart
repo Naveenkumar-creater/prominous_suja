@@ -14,6 +14,7 @@ import 'package:suja_shoie_app/feature/presentaion/providers/userprovider.dart';
 import 'package:suja_shoie_app/constant/utils/theme_styles.dart';
 
 import 'feature/presentaion/pages/widget/login_page_widget/responsive_login_screen.dart';
+import 'feature/presentaion/providers/checklist_status_count_provider.dart';
 import 'feature/presentaion/providers/machine_list_provider.dart';
 
 void main() {
@@ -42,9 +43,13 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<UserProvider>(
             create: (_) => UserProvider(),
           ),
-          ChangeNotifierProvider<CheckListStatusProvider>(
-            create: (_) => CheckListStatusProvider(),
+          ChangeNotifierProvider<CheckListStatusCountProvider>(
+            create: (_) => CheckListStatusCountProvider(),
           ),
+
+          // ChangeNotifierProvider<CheckListStatusProvider>(
+          //   create: (_) => CheckListStatusProvider(),
+          // ),
         ],
         child: Consumer<ThemeProvider>(
           builder: (context, themeProvider, child) {
@@ -53,7 +58,7 @@ class MyApp extends StatelessWidget {
               theme: themeData(context, themeProvider.isDarkTheme),
               debugShowCheckedModeBanner: false,
               home: Scaffold(
-                body: LoginPage(),
+                body: MainScreen(),
               ),
             );
           },

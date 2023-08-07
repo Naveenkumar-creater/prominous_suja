@@ -25,12 +25,19 @@ class LoginClient {
       );
 
       if (response.statusCode == 200) {
-        return jsonDecode(response.body);
-      } else {
-        throw Exception("Invalid  or password");
+        Map<String, dynamic> responseBody = jsonDecode(response.body);
+
+        if (responseBody.containsKey('response_data') &&
+            responseBody['response_data']['user_login'] is List &&
+            responseBody['response_data']['user_login'].isNotEmpty) {
+          // Data is available, proceed with processing
+          return LoginModel.fromJson(responseBody);
+        } else {
+          throw Exception("Invalid username or password");
+        }
       }
     } catch (e) {
-      throw e;
+      throw Exception("Failed to make the API request: $e");
     }
   }
 }

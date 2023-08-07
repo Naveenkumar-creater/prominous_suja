@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-
+import 'package:suja_shoie_app/feature/presentaion/api_services/checklist_status_count_service.dart';
 import 'package:suja_shoie_app/feature/presentaion/pages/widget/home_page_widget/workorder_widget/circular_progress_bar.dart';
 import 'package:suja_shoie_app/feature/presentaion/pages/widget/home_page_widget/workorder_widget/dropdown_button.dart';
-import 'package:suja_shoie_app/models/checklist_staatus_model.dart';
-
-import '../../../../providers/checklist_status_provider.dart';
+import 'package:suja_shoie_app/feature/presentaion/providers/checklist_status_count_provider.dart';
 import '../../../../providers/theme_providers.dart';
 
 import '../../../../../../constant/utils/font_styles.dart';
@@ -205,19 +203,29 @@ class GridViewContent extends StatefulWidget {
 }
 
 class _GridViewContentState extends State<GridViewContent> {
+  final ChecklistStatusService authService = ChecklistStatusService();
+
   @override
   void initState() {
     super.initState();
-    Provider.of<CheckListStatusProvider>(context, listen: false)
-        .getStatus(context);
+    authService.getStatusCount(context);
   }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Provider.of<CheckListStatusProvider>(context, listen: false)
+  //       .getStatus(context);
+  // }
 
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<ThemeProvider>(context);
-    final checklistStatusProvider =
-        Provider.of<CheckListStatusProvider>(context);
-    final count = checklistStatusProvider.data?.checklistStatusCount?.first;
+    // final checklistStatusProvider =
+    //     Provider.of<CheckListStatusProvider>(context);
+    // final count = checklistStatusProvider.data?.checklistStatusCount?.first;
+    final checklistStatusCountProvider =
+        Provider.of<CheckListStatusCountProvider>(context);
+    final count = checklistStatusCountProvider.user;
 
     return Container(
       decoration: BoxDecoration(
@@ -263,10 +271,10 @@ class _GridViewContentState extends State<GridViewContent> {
               ],
             ),
             widgetList: [
-              count?.checklistOpensCount ?? 0,
-              count?.checklistInProgressCount ?? 0,
-              count?.checklistCompleteCount ?? 0,
-              count?.checklistOverdueCount ?? 0,
+              count?.checklistOpenCount ?? 0,
+              count?.checklistInprogress ?? 0,
+              count?.checklistCompleted ?? 0,
+              count?.checklistOverdue ?? 0,
             ], // Use the integer value directly
           ),
           SizedBox(
