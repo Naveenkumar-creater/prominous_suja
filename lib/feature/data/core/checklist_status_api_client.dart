@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:suja_shoie_app/feature/data/model/checklist_status_model.dart';
@@ -16,14 +17,19 @@ class CheckListStatusClient {
       "client_id": "atma-arh-diahome"
     };
 
+    final timeoutDuration =
+        Duration(seconds: 10); // Define your desired timeout duration
+
     try {
-      http.Response response = await http.post(
-        Uri.parse(ApiConstant.baseUrl),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(requestData),
-      );
+      http.Response response = await http
+          .post(
+            Uri.parse(ApiConstant.baseUrl),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: jsonEncode(requestData),
+          )
+          .timeout(timeoutDuration); // Add the timeout parameter here
 
       if (response.statusCode == 200) {
         Map<String, dynamic> responseBody = jsonDecode(response.body);
@@ -36,6 +42,10 @@ class CheckListStatusClient {
           throw Exception("no valid data ");
         }
       }
+    } on TimeoutException {
+      // Handle timeout error
+      throw Exception(
+          'Connection timed out. Please check your internet connection.');
     } catch (e) {
       throw Exception("Failed to make the API request: $e");
     }

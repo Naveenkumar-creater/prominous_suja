@@ -38,7 +38,7 @@ class _QrScannerState extends State<QrScanner> {
       // Define the QR code to page mappings
       Map<String, Widget> codeToPageMap = {
         'YOUR_QR_CODE_1': MainScreen(),
-        'YOUR_QR_CODE_2': LoginPage(),
+        // 'YOUR_QR_CODE_2': LoginPage(),
         // Add more code-page mappings as needed
       };
 

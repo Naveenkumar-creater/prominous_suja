@@ -10,8 +10,10 @@ class loginEntity extends Equatable {
   final String? orgName;
   final String? permissionRole;
   final String? orgLogo;
+  final String? clientauthToken;
 
   loginEntity({
+    this.clientauthToken,
     this.loginId,
     this.password,
     this.personFname,

@@ -3,10 +3,9 @@ import 'package:provider/provider.dart';
 
 import 'package:suja_shoie_app/feature/presentaion/api_services/user_service.dart';
 import 'package:suja_shoie_app/feature/presentaion/pages/home_page/main_screen.dart';
-import 'package:suja_shoie_app/feature/presentaion/pages/login_page.dart';
 
 import 'package:suja_shoie_app/feature/presentaion/providers/bottom_tap_provider.dart';
-import 'package:suja_shoie_app/feature/presentaion/providers/checklist_status_provider.dart';
+
 import 'package:suja_shoie_app/feature/presentaion/providers/loginprovider.dart';
 import 'package:suja_shoie_app/feature/presentaion/providers/theme_providers.dart';
 import 'package:suja_shoie_app/feature/presentaion/providers/userprovider.dart';
