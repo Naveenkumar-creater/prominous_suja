@@ -1,16 +1,14 @@
-import 'package:equatable/equatable.dart';
-
 import '../../domain/entity/checklist_status_count_entity.dart';
 
 class ChecklistStatusModel extends ChecklistStatusEntity {
-  ChecklistStatusModel({int? Count})
-      : super(
-          Count: Count,
-        );
+  ChecklistStatusModel({
+    required int count,
+  }) : super(count: count);
 
   factory ChecklistStatusModel.fromJson(Map<String, dynamic> json) {
+    final checklistStatus = json['response_data']['checklist_status'];
     return ChecklistStatusModel(
-      Count: json['count'],
+      count: checklistStatus['count'],
     );
   }
 }

@@ -3,5 +3,5 @@ import '../entity/loginentity.dart';
 
 abstract class CheckListStausRepository {
   Future<ChecklistStatusEntity> getChecklistStatusCount(
-      int count, DateTime fromDate, DateTime toDate, String token);
+      int count, String toDate, String token);
 }

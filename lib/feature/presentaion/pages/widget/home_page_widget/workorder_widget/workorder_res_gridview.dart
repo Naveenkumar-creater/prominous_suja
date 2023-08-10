@@ -203,19 +203,15 @@ class GridViewContent extends StatefulWidget {
 }
 
 class _GridViewContentState extends State<GridViewContent> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Provider.of<CheckListStatusProvider>(context, listen: false)
-  //       .getStatus(context);
-  // }
+  int selectedDropdownIndex = 0; // Default dropdown index
+  List<int> statusCount = [0, 0, 0, 0]; // Placeholder status counts
+
+  final ChecklistStatusService checklistStatusService =
+      ChecklistStatusService();
 
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<ThemeProvider>(context);
-    // final checklistStatusProvider =
-    //     Provider.of<CheckListStatusProvider>(context);
-    // final count = checklistStatusProvider.data?.checklistStatusCount?.first;
     final checklistStatusCountProvider =
         Provider.of<CheckListStatusCountProvider>(context);
     final count = checklistStatusCountProvider.user;
@@ -241,7 +237,6 @@ class _GridViewContentState extends State<GridViewContent> {
             Open: Column(
               children: [
                 Text('Content for Option'),
-
                 // Add additional widgets specific to the 'option' option
               ],
             ),
@@ -263,7 +258,9 @@ class _GridViewContentState extends State<GridViewContent> {
                 // Add additional widgets specific to the 'overdue' option
               ],
             ),
-            widgetList: [5, 4, 3, 2], // Use the integer value directly
+            selectedValueIndex: selectedDropdownIndex,
+            onIndexChanged: handleDropdownChange,
+            widgetList: statusCount, // Use the statusCount list for values
           ),
           SizedBox(
             height: 10,
@@ -271,9 +268,32 @@ class _GridViewContentState extends State<GridViewContent> {
           Headings(
             text: widget.title,
           ),
+          // Display the status count based on the selectedDropdownIndex
+          Text(
+            'Status Count: ${statusCount[selectedDropdownIndex]}',
+            style: TextStyle(fontSize: 18),
+          ),
         ],
       ),
     );
+  }
+
+  void handleDropdownChange(int newIndex) async {
+    setState(() {
+      selectedDropdownIndex = newIndex;
+    });
+
+    // Call the getStatusCount method from the service to fetch status count
+    checklistStatusService.getStatusCount(
+      context: context,
+      count: selectedDropdownIndex, // Pass the selected dropdown index
+    );
+
+    // Update the statusCount list with the fetched status count
+    final checklistStatusCountProvider =
+        Provider.of<CheckListStatusCountProvider>(context, listen: false);
+    statusCount[selectedDropdownIndex] =
+        checklistStatusCountProvider.user as int;
   }
 }
 

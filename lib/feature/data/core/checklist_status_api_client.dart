@@ -7,15 +7,14 @@ import 'package:suja_shoie_app/feature/data/model/request_data_model.dart';
 import 'api_constant.dart';
 
 class CheckListStatusClient {
-  dynamic getStatusCount(
-      int count, DateTime fromDate, DateTime toDate, String token) async {
+  dynamic getStatusCount(int count, String toDate, String token) async {
     ApiRequestDataModel requestData = ApiRequestDataModel(
       clientAuthToken: token,
       apiFor: "check_list_status_count",
       checklistStatus: count,
-      fromDateTime: fromDate,
+      fromDateTime: "2023-09-01 10:00:00",
       toDateTime: toDate,
-      clientId: "atma-arh-diahome",
+      clientId: "admin",
     );
 
     final timeoutDuration =
@@ -33,15 +32,7 @@ class CheckListStatusClient {
           .timeout(timeoutDuration); // Add the timeout parameter here
 
       if (response.statusCode == 200) {
-        Map<String, dynamic> responseBody = jsonDecode(response.body);
-
-        if (responseBody['response_data']['checklist_status'] is List &&
-            responseBody['response_data']['checklist_status'].isNotEmpty) {
-          // Data is available, proceed with processing
-          return ChecklistStatusModel.fromJson(responseBody);
-        } else {
-          throw Exception("no valid data ");
-        }
+        return jsonDecode(response.body);
       }
     } on TimeoutException {
       // Handle timeout error

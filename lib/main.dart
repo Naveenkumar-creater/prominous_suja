@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:suja_shoie_app/feature/presentaion/api_services/user_service.dart';
 import 'package:suja_shoie_app/feature/presentaion/pages/home_page/main_screen.dart';
@@ -13,6 +14,7 @@ import 'package:suja_shoie_app/feature/presentaion/providers/userprovider.dart';
 
 import 'package:suja_shoie_app/constant/utils/theme_styles.dart';
 
+import 'feature/presentaion/api_services/checklist_status_count_service.dart';
 import 'feature/presentaion/pages/widget/login_page_widget/responsive_login_screen.dart';
 import 'feature/presentaion/providers/checklist_status_count_provider.dart';
 import 'feature/presentaion/providers/machine_list_provider.dart';
@@ -58,7 +60,7 @@ class MyApp extends StatelessWidget {
               theme: themeData(context, themeProvider.isDarkTheme),
               debugShowCheckedModeBanner: false,
               home: Scaffold(
-                body: LoginPage(),
+                body: MainScreen(),
               ),
             );
           },
@@ -97,6 +99,50 @@ class _DefaultScreenScreenState extends State<DefaultScreen> {
               ? const MainScreen()
               : const LoginScreen();
         },
+      ),
+    );
+  }
+}
+
+class YourPage extends StatelessWidget {
+  final List<int> countOptions = [1, 2, 3, 4]; // Define your count options here
+  int selectedCount = 1; // Initialize the selected count
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Dropdown Example'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DropdownButton<int>(
+              value: selectedCount,
+              onChanged: (value) {
+                // Update the selected count when the user selects an option
+                selectedCount = value!;
+              },
+              items: countOptions.map((int value) {
+                return DropdownMenuItem<int>(
+                  value: value,
+                  child: Text(value.toString()),
+                );
+              }).toList(),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Call your service method with the selected count
+                ChecklistStatusService().getStatusCount(
+                  context: context,
+                  count: selectedCount,
+                );
+              },
+              child: Text('Get Status'),
+            ),
+          ],
+        ),
       ),
     );
   }

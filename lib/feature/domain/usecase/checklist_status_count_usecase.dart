@@ -10,8 +10,8 @@ class CheckListStatusCountUseCase {
   CheckListStatusCountUseCase(this.checkListStausRepository);
 
   Future<ChecklistStatusEntity> execute(
-      int count, DateTime fromDate, DateTime toDate, String token) async {
+      int count, String toDate, String token) async {
     return checkListStausRepository.getChecklistStatusCount(
-        count, fromDate, toDate, token);
+        count, toDate, token);
   }
 }

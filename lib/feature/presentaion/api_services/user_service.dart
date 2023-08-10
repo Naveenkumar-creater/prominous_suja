@@ -54,7 +54,7 @@ class Login_auth_Screen {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => MainScreen(),
+          builder: (context) => SplashScreen(),
         ),
         (route) => false,
       );

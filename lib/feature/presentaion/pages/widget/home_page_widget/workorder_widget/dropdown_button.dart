@@ -19,6 +19,8 @@ class DropdownMenuExample extends StatefulWidget {
     required this.complete,
     required this.overdue,
     required this.widgetList,
+    required int selectedValueIndex,
+    required void Function(int newIndex) onIndexChanged,
   }) : super(key: key);
 
   @override
@@ -26,7 +28,7 @@ class DropdownMenuExample extends StatefulWidget {
 }
 
 class _DropdownMenuExampleState extends State<DropdownMenuExample> {
-  int selectedValueIndex = 0;
+  int selectedValueIndex = 1;
 
   List<String> dropdownOptions = [
     'Open',
@@ -120,19 +122,19 @@ class _DropdownMenuExampleState extends State<DropdownMenuExample> {
     Widget content;
 
     switch (selectedValueIndex) {
-      case 0:
+      case 1:
         text = 'Open';
         content = AssetList();
         break;
-      case 1:
+      case 2:
         text = 'In Progress';
         content = widget.inProgress;
         break;
-      case 2:
+      case 3:
         text = 'Complete';
         content = widget.complete;
         break;
-      case 3:
+      case 4:
         text = 'Overdue';
         content = widget.overdue;
         break;

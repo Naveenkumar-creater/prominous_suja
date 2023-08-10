@@ -6,6 +6,7 @@ import 'package:suja_shoie_app/feature/data/core/login_api_client.dart';
 import 'package:suja_shoie_app/feature/data/data_source/Remote/login_data_source_impl.dart';
 import 'package:suja_shoie_app/feature/data/repository/login_repository_imp.dart';
 import 'package:suja_shoie_app/feature/domain/entity/loginentity.dart';
+import 'package:suja_shoie_app/feature/presentaion/pages/spalsh_screen.dart';
 import 'package:suja_shoie_app/feature/presentaion/providers/loginprovider.dart';
 import '../../domain/repository/login_repository.dart';
 import '../../domain/usecase/login_usecase.dart';
@@ -29,10 +30,12 @@ class LoginApiService {
       print(loginUser);
 
       SharedPreferences pref = await SharedPreferences.getInstance();
+
       Provider.of<LoginProvider>(context, listen: false).setUser(loginUser);
 
-      await pref.setString("token", loginUser.clientauthToken!);
+      await pref.setString("client_token", loginUser.clientauthToken!);
 
+      // ignore: use_build_context_synchronously
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
@@ -49,12 +52,12 @@ class LoginApiService {
     try {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
-      await sharedPreferences.setString("token", "");
+      await sharedPreferences.setString("client_token", "");
 
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => MainScreen(),
+          builder: (context) => const SplashScreen(),
         ),
         (route) => false,
       );

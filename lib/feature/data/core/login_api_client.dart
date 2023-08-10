@@ -25,8 +25,11 @@ class LoginClient {
       print(response.body);
 
       if (response.statusCode == 200) {
-        print(jsonDecode(response.body));
-        return jsonDecode(response.body);
+        final responseJson = jsonDecode(response.body);
+        final responseMsg = responseJson['response_msg'];
+        if (responseMsg != "Login access denied") {
+          return responseJson; // Custom exception for access denied
+        }
       } else {
         throw Exception("Invalid email or password");
       }
