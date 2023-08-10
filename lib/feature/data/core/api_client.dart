@@ -16,6 +16,7 @@ class ApiClient {
       );
 
       if (res.statusCode == 200) {
+        print(res.body);
         return jsonDecode(res.body);
       } else {
         throw Exception("Invalid email or password");

@@ -15,7 +15,12 @@ import 'package:suja_shoie_app/feature/domain/usecase/checklist_status_count_use
 import 'package:suja_shoie_app/feature/presentaion/providers/checklist_status_count_provider.dart';
 
 class ChecklistStatusService {
-  void getStatusCount(BuildContext context) async {
+  void getStatusCount(
+      {required BuildContext context,
+      required int count,
+      required DateTime fromDate,
+      required DateTime toDate,
+      required String token}) async {
     try {
       CheckListStatusClient checkListClient =
           CheckListStatusClient(); // Create an instance of ApiClient
@@ -29,7 +34,8 @@ class ChecklistStatusService {
               checklistRepository); // Create the use case
       // ignore: unused_local_variable
 
-      ChecklistStatusEntity user = await checkListUseCase.execute();
+      ChecklistStatusEntity user =
+          await checkListUseCase.execute(count, fromDate, toDate, token);
 
       var checkliststatus =
           Provider.of<CheckListStatusCountProvider>(context, listen: false);

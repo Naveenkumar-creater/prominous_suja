@@ -2,39 +2,33 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:suja_shoie_app/feature/data/core/api_constant.dart';
 import 'package:suja_shoie_app/feature/data/model/loginmodel.dart';
+import 'package:suja_shoie_app/feature/data/model/request_data_model.dart';
 
 import '../data_source/Remote/login_data_source_impl.dart';
 
 class LoginClient {
   dynamic post(String loginId, String password) async {
-    Map<String, dynamic> requestData = {
-      "client_aut_token": "atma-arh-diahome-341",
-      "api_for": "Login",
-      "login_id": loginId,
-      "password": password,
-      "client_id": "atma-arh-diahome"
-    };
-
+    ApiRequestDataModel requestData = ApiRequestDataModel(
+        apiFor: "generate_access_token",
+        loginPassword: password,
+        clGroup: "patienttype",
+        loginId: loginId);
     try {
       http.Response response = await http.post(
         Uri.parse(ApiConstant.baseUrl),
         headers: {
           'Content-Type': 'application/json',
         },
-        body: jsonEncode(requestData),
+        body: jsonEncode(requestData.toJson()),
       );
 
-      if (response.statusCode == 200) {
-        Map<String, dynamic> responseBody = jsonDecode(response.body);
+      print(response.body);
 
-        if (responseBody.containsKey('response_data') &&
-            responseBody['response_data']['user_login'] is List &&
-            responseBody['response_data']['user_login'].isNotEmpty) {
-          // Data is available, proceed with processing
-          return LoginModel.fromJson(responseBody);
-        } else {
-          throw Exception("Invalid username or password");
-        }
+      if (response.statusCode == 200) {
+        print(jsonDecode(response.body));
+        return jsonDecode(response.body);
+      } else {
+        throw Exception("Invalid email or password");
       }
     } catch (e) {
       throw Exception("Failed to make the API request: $e");

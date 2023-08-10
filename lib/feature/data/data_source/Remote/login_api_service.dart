@@ -17,6 +17,7 @@ class ApiService extends ApiDataSource {
   Future<UserModel> signInUser(String email, String password) async {
     final response = await apiclient.post('signin', email, password);
     final result = UserModel.fromJson(response);
+    print(result);
     return result;
   }
 

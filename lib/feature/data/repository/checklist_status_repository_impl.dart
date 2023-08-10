@@ -9,9 +9,10 @@ class ChecklistRepositoryImpl implements CheckListStausRepository {
   ChecklistRepositoryImpl(this.checkListDataSource);
 
   @override
-  Future<ChecklistStatusModel> getChecklistStatusCount() async {
-    ChecklistStatusModel checklistStatusModel =
-        await checkListDataSource.getChecklistStatusCount();
+  Future<ChecklistStatusModel> getChecklistStatusCount(
+      int count, DateTime fromDate, DateTime toDate, String token) async {
+    ChecklistStatusModel checklistStatusModel = await checkListDataSource
+        .getChecklistStatusCount(count, fromDate, toDate, token);
     return checklistStatusModel;
   }
 }

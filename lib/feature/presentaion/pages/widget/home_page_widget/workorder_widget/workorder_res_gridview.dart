@@ -203,13 +203,6 @@ class GridViewContent extends StatefulWidget {
 }
 
 class _GridViewContentState extends State<GridViewContent> {
-  final ChecklistStatusService authService = ChecklistStatusService();
-
-  @override
-  void initState() {
-    super.initState();
-    authService.getStatusCount(context);
-  }
   // @override
   // void initState() {
   //   super.initState();
@@ -270,12 +263,7 @@ class _GridViewContentState extends State<GridViewContent> {
                 // Add additional widgets specific to the 'overdue' option
               ],
             ),
-            widgetList: [
-              count?.checklistOpenCount ?? 0,
-              count?.checklistInprogress ?? 0,
-              count?.checklistCompleted ?? 0,
-              count?.checklistOverdue ?? 0,
-            ], // Use the integer value directly
+            widgetList: [5, 4, 3, 2], // Use the integer value directly
           ),
           SizedBox(
             height: 10,

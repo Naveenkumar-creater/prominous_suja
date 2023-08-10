@@ -2,20 +2,21 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:suja_shoie_app/feature/data/model/checklist_status_model.dart';
+import 'package:suja_shoie_app/feature/data/model/request_data_model.dart';
 
 import 'api_constant.dart';
 
 class CheckListStatusClient {
-  dynamic get() async {
-    Map<String, dynamic> requestData = {
-      "client_aut_token": "atma-arh-diahome-324",
-      "api_for": "check_list_status_count",
-      "checklist_status": "1",
-      "inspection_by": "1",
-      "from_date_time": "2023-09-01 10:00:00",
-      "to_date_time": "2023-09-02 10:00:00",
-      "client_id": "atma-arh-diahome"
-    };
+  dynamic getStatusCount(
+      int count, DateTime fromDate, DateTime toDate, String token) async {
+    ApiRequestDataModel requestData = ApiRequestDataModel(
+      clientAuthToken: token,
+      apiFor: "check_list_status_count",
+      checklistStatus: count,
+      fromDateTime: fromDate,
+      toDateTime: toDate,
+      clientId: "atma-arh-diahome",
+    );
 
     final timeoutDuration =
         Duration(seconds: 10); // Define your desired timeout duration

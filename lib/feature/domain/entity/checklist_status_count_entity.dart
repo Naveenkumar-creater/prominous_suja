@@ -1,25 +1,16 @@
 import 'package:equatable/equatable.dart';
 
 class ChecklistStatusEntity extends Equatable {
-  final int? checklistOpenCount;
-  final int? checklistOverdue;
-  final int? checklistInprogress;
-  final int? checklistCompleted;
+  final int? Count;
 
   ChecklistStatusEntity({
-    this.checklistOpenCount,
-    this.checklistOverdue,
-    this.checklistInprogress,
-    this.checklistCompleted,
+    this.Count,
   });
 
   @override
   List<Object?> get props {
     return [
-      checklistOpenCount,
-      checklistOverdue,
-      checklistInprogress,
-      checklistCompleted,
+      Count,
     ];
   }
 }

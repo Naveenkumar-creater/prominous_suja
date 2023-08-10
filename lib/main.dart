@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:suja_shoie_app/feature/presentaion/api_services/user_service.dart';
 import 'package:suja_shoie_app/feature/presentaion/pages/home_page/main_screen.dart';
+import 'package:suja_shoie_app/feature/presentaion/pages/login_page.dart';
 
 import 'package:suja_shoie_app/feature/presentaion/providers/bottom_tap_provider.dart';
 
@@ -57,7 +58,7 @@ class MyApp extends StatelessWidget {
               theme: themeData(context, themeProvider.isDarkTheme),
               debugShowCheckedModeBanner: false,
               home: Scaffold(
-                body: MainScreen(),
+                body: LoginPage(),
               ),
             );
           },

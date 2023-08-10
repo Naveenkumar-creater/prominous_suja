@@ -16,7 +16,7 @@ class AuthScreen extends StatefulWidget {
 class _AuthScreenState extends State<AuthScreen> {
   final GlobalKey<FormState> signinFormKey = GlobalKey<FormState>();
   // final Login_auth_Screen authScreen = Login_auth_Screen();
-  final Login_Screen loginScreen = Login_Screen();
+  final LoginApiService loginApiService = LoginApiService();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -39,7 +39,7 @@ class _AuthScreenState extends State<AuthScreen> {
   // }
 
   void logInUser() {
-    (loginScreen.login(
+    (loginApiService.login(
       context: context,
       loginId: _emailController.text,
       password: _passwordController.text,

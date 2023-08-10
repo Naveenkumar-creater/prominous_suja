@@ -7,8 +7,8 @@ class ApiRequestDataModel {
   String? loginPassword;
   String? clGroup;
   int? checklistStatus;
-  String? fromDateTime;
-  String? toDateTime;
+  DateTime? fromDateTime;
+  DateTime? toDateTime;
   String? clientId;
 
   ApiRequestDataModel({

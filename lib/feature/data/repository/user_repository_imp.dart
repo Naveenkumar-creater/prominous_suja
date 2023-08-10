@@ -11,8 +11,7 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<UserModel> signInUser(String email, String password) async {
-    UserModel userModel =
-        (await apiService.signInUser(email, password)) as UserModel;
+    UserModel userModel = await apiService.signInUser(email, password);
     return userModel;
   }
 
